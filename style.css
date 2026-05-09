@@ -294,7 +294,7 @@ img {
   min-height: 100vh;
   display: flex;
   background-image: url(back.jpg);
-  background-size: contain;
+  background-size: cover;
   align-items: center;
   justify-content: center;
   padding: calc(var(--navbar-height) + 2rem) 1.5rem 4rem;
