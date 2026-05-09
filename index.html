@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="College Question Paper Digital Library - Search, preview and download previous year question papers." />
+  <title>EduVault – College Question Paper Digital Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <div class="logo-icon"><i data-lucide="library-big"></i></div>
+        <span class="logo-text">BIAS lib.</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#library" class="nav-link">Library</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#query" class="nav-link">Ask Query</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn-primary nav-cta" onclick="document.getElementById('library').scrollIntoView({behavior:'smooth'})">
+          <i data-lucide="search"></i> Explore Papers
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+      <div class="floating-el el-1"><i data-lucide="file-text"></i></div>
+      <div class="floating-el el-2"><i data-lucide="graduation-cap"></i></div>
+      <div class="floating-el el-3"><i data-lucide="book-open"></i></div>
+      <div class="floating-el el-4"><i data-lucide="layers"></i></div>
+      <div class="floating-el el-5"><i data-lucide="award"></i></div>
+    </div>
+    <div class="hero-content animate-on-load">
+      <div class="hero-badge"><i data-lucide="sparkles"></i><span>200+ Question Papers Available</span></div>
+      <h1 class="hero-title">College Question Paper<br/><span class="gradient-text">Digital Library</span></h1>
+      <p class="hero-subtitle">Your one-stop destination to search, preview, and download previous year question papers for all subjects across all semesters. Ace your exams with confidence.</p>
+      <div class="hero-actions">
+        <button class="btn-hero-primary" onclick="document.getElementById('library').scrollIntoView({behavior:'smooth'})">
+          <i data-lucide="folder-open"></i> Explore Papers
+        </button>
+        <button class="btn-hero-secondary" onclick="document.getElementById('query').scrollIntoView({behavior:'smooth'})">
+          <i data-lucide="message-circle"></i> Ask a Query
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-number">200+</span><span class="stat-label">Question Papers</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-number">15+</span><span class="stat-label">Subjects</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-number">6</span><span class="stat-label">Semesters</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat-item"><span class="stat-number">5+</span><span class="stat-label">Years</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- LIBRARY SECTION -->
+  <section class="library-section" id="library">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><i data-lucide="layers"></i> Question Paper Library</div>
+        <h2 class="section-title">Browse All Papers</h2>
+        <p class="section-subtitle">Filter by subject, semester, or year to find exactly what you need</p>
+      </div>
+
+      <div class="search-filter-bar reveal">
+        <div class="search-box">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Search by title, subject, semester, or year..." autocomplete="off" />
+          <button class="clear-search" id="clearSearch" title="Clear"><i data-lucide="x"></i></button>
+        </div>
+        <div class="filters-row">
+          <div class="filter-group">
+            <label for="subjectFilter"><i data-lucide="book"></i> Subject</label>
+            <select id="subjectFilter"><option value="">All Subjects</option></select>
+          </div>
+          <div class="filter-group">
+            <label for="semesterFilter"><i data-lucide="calendar"></i> Semester</label>
+            <select id="semesterFilter"><option value="">All Semesters</option></select>
+          </div>
+          <div class="filter-group">
+            <label for="yearFilter"><i data-lucide="clock"></i> Year</label>
+            <select id="yearFilter"><option value="">All Years</option></select>
+          </div>
+          <button class="btn-reset-filters" id="resetFilters"><i data-lucide="rotate-ccw"></i> Reset</button>
+        </div>
+      </div>
+
+      <div class="results-meta reveal">
+        <span id="resultsCount" class="results-count">Showing all papers</span>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridViewBtn" title="Grid view"><i data-lucide="layout-grid"></i></button>
+          <button class="view-btn" id="listViewBtn" title="List view"><i data-lucide="list"></i></button>
+        </div>
+      </div>
+
+      <div class="papers-grid" id="papersGrid"></div>
+
+      <div class="no-results hidden" id="noResults">
+        <div class="no-results-icon"><i data-lucide="file-x"></i></div>
+        <h3>No question papers found</h3>
+        <p>Try adjusting your search terms or filters to find what you're looking for.</p>
+        <button class="btn-primary" id="clearAllFilters"><i data-lucide="rotate-ccw"></i> Clear All Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge"><i data-lucide="info"></i> About BIAS lib.</div>
+        <h2 class="section-title">Why Use BIAS lib.?</h2>
+        <p class="section-subtitle">Built for students, by students — making exam preparation smarter</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon" style="--icon-color:#6366f1"><i data-lucide="search"></i></div>
+          <h3>Smart Search</h3>
+          <p>Find papers instantly using our intelligent search system — filter by subject, semester, or year in seconds.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon" style="--icon-color:#10b981"><i data-lucide="eye"></i></div>
+          <h3>Instant Preview</h3>
+          <p>Preview question papers right in your browser before downloading, saving time and bandwidth.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon" style="--icon-color:#f59e0b"><i data-lucide="download"></i></div>
+          <h3>Free Download</h3>
+          <p>Download all question papers for free — no sign-up required, no paywalls, completely open access.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon" style="--icon-color:#ec4899"><i data-lucide="smartphone"></i></div>
+          <h3>Mobile Friendly</h3>
+          <p>Access your question papers from any device — phone, tablet, or desktop with a fully responsive design.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon" style="--icon-color:#3b82f6"><i data-lucide="shield-check"></i></div>
+          <h3>Verified Papers</h3>
+          <p>All papers are verified by faculty and senior students to ensure accuracy and authenticity.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon" style="--icon-color:#8b5cf6"><i data-lucide="refresh-cw"></i></div>
+          <h3>Regularly Updated</h3>
+          <p>New papers are added every semester. Stay up-to-date with the latest question papers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ASK QUERY SECTION -->
+  <section class="query-section" id="query">
+    <div class="container">
+      <div class="query-wrapper reveal">
+        <div class="query-info">
+          <div class="section-badge"><i data-lucide="message-square"></i> Ask Query</div>
+          <h2 class="section-title" style="text-align:left">Can't Find What<br/>You're Looking For?</h2>
+          <p class="section-subtitle" style="text-align:left">Submit your query and our team will help you find the right question paper or add new papers to the library.</p>
+          <div class="query-features">
+            <div class="query-feature"><i data-lucide="clock"></i><span>Response within 24 hours</span></div>
+            <div class="query-feature"><i data-lucide="users"></i><span>Helped 1000+ students</span></div>
+            <div class="query-feature"><i data-lucide="mail"></i><span>Email confirmation sent</span></div>
+          </div>
+        </div>
+        <div class="query-form-card">
+          <form id="queryForm" action="https://formspree.io/f/mqenynoj" method="post" novalidate >
+            <div class="form-group">
+              <label for="studentName"><i data-lucide="user"></i> Student Name</label>
+              <input type="text" id="studentName" placeholder="Enter your full name" />
+              <span class="form-error" id="nameError"></span>
+            </div>
+            <div class="form-group">
+              <label for="studentEmail"><i data-lucide="mail"></i> Email Address</label>
+              <input type="email" id="studentEmail" placeholder="Enter your email address" />
+              <span class="form-error" id="emailError"></span>
+            </div>
+            <div class="form-group">
+              <label for="queryMessage"><i data-lucide="message-circle"></i> Your Query</label>
+              <textarea id="queryMessage" rows="4" placeholder="Describe your query or request a specific question paper..."></textarea>
+              <span class="form-error" id="messageError"></span>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <i data-lucide="send"></i><span>Submit Query</span>
+            </button>
+          </form>
+          <div class="form-success hidden" id="formSuccess">
+            <div class="success-icon"><i data-lucide="check-circle"></i></div>
+            <h3>Query Submitted Successfully!</h3>
+            <p>Thank you! Your query has been received. We'll get back to you within 24 hours at your email address.</p>
+            <button class="btn-primary" id="submitAnother"><i data-lucide="plus"></i> Submit Another Query</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            <div class="logo-icon"><i data-lucide="library-big"></i></div>
+            <span class="logo-text">BIAS lib.</span>
+          </div>
+          <p>Empowering students with easy access to previous year question papers for smarter exam preparation.</p>
+          <div class="social-links">
+            <a href="mailto:info@birlainstitute.co.in">E-mail</a>
+            <a href="https://youtube.com/@biasactivity?si=kiRFB7aGRMntQDLm">YouTube</a>
+            <a href="https://www.facebook.com/share/1JLHitumKH/">facebook</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="#home">Home</a><a href="#library">Library</a>
+          <a href="#about">About</a><a href="#query">Ask Query</a>
+        </div>
+        <div class="footer-links">
+          <h4>Popular Subjects</h4>
+          <a href="#">C Programming</a><a href="#">Data Structures</a>
+          <a href="#">DBMS</a><a href="#">Operating Systems</a>
+          <a href="#">Computer Networks</a>
+        </div>
+        <div class="footer-links">
+          <h4>Resources</h4>
+          <a href="#">Study Guides</a><a href="#">Exam Tips</a>
+          <a href="#">Syllabus</a><a href="#">Help Center</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 EduVault. All rights reserved. Built for college students.</p>
+        <p>A Hackathon Project — Frontend Only Demo</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PAPER DETAIL MODAL -->
+  <div class="modal-overlay" id="paperModal">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose"><i data-lucide="x"></i></button>
+      <div class="modal-header">
+        <div class="modal-folder-icon"><i data-lucide="folder-open"></i></div>
+        <div class="modal-title-group">
+          <span class="modal-subject-tag" id="modalSubjectTag"></span>
+          <h2 class="modal-title" id="modalTitle"></h2>
+        </div>
+      </div>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-preview-area" id="modalPreviewArea">
+        <div class="pdf-preview-placeholder">
+          <div class="pdf-icon-large"><i data-lucide="file-text"></i></div>
+          <h3 id="modalPreviewTitle"></h3>
+          <p>Click "Preview" to open the PDF viewer, or "Download" to save the file to your device.</p>
+          <div class="pdf-preview-info">
+            <span><i data-lucide="file"></i> PDF Document</span>
+            <span><i data-lucide="hard-drive"></i> ~2.4 MB</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-preview" id="modalPreviewBtn"><i data-lucide="eye"></i> Preview Paper</button>
+        <button class="btn-download" id="modalDownloadBtn"><i data-lucide="download"></i> Download PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREVIEW MODAL -->
+  <div class="preview-modal-overlay" id="previewModal">
+    <div class="preview-modal-card">
+      <div class="preview-modal-header">
+        <span id="previewModalTitle">Paper Preview</span>
+        <button class="modal-close" id="previewModalClose"><i data-lucide="x"></i></button>
+      </div>
+      <div class="preview-modal-body">
+        <div class="preview-unavailable">
+          <i data-lucide="file-text"></i>
+          <h3>Preview Mode</h3>
+          <p>In a production environment, the PDF would render here using an embedded viewer.</p>
+          <p style="margin-top:8px;font-size:.85rem;opacity:.7">File: <code id="previewFilePath"></code></p>
+          <button class="btn-primary" id="previewDownloadInstead" style="margin-top:16px">
+            <i data-lucide="download"></i> Download Instead
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+
+  <script src="script.js"></script>
+</body>
+</html>
